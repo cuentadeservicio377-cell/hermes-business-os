@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: hermes-business-os
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite:///./data/business.db
+      - REDIS_URL=redis://redis:6379/0
+    env_file:
+      - ../.env
+    volumes:
+      - ../data:/app/data
+      - ../config:/app/config
+      - ../skills:/app/skills
+      - ../output:/app/output
+    depends_on:
+      - redis
+    restart: unless-stopped
+    networks:
+      - hermes-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: hermes-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+    networks:
+      - hermes-network
+
+  # Optional: Telegram bot runner
+  bot:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: hermes-bot
+    command: python -m integrations.telegram_runner
+    env_file:
+      - ../.env
+    depends_on:
+      - app
+    restart: unless-stopped
+    networks:
+      - hermes-network
+
+volumes:
+  redis-data:
+
+networks:
+  hermes-network:
+    driver: bridge

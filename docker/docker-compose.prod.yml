@@ -1,0 +1,86 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: hermes-business-os
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - REDIS_URL=redis://redis:6379/0
+      - SECRET_KEY=${SECRET_KEY}
+    env_file:
+      - ../.env
+    volumes:
+      - ../data:/app/data
+      - ../config:/app/config
+      - ../skills:/app/skills
+      - ../output:/app/output
+    depends_on:
+      - redis
+      - db
+    restart: unless-stopped
+    networks:
+      - hermes-network
+
+  db:
+    image: postgres:15-alpine
+    container_name: hermes-db
+    environment:
+      - POSTGRES_USER=${DB_USER:-hermes}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME:-hermes}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - hermes-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: hermes-redis
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+    networks:
+      - hermes-network
+
+  nginx:
+    image: nginx:alpine
+    container_name: hermes-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ../ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - app
+    restart: unless-stopped
+    networks:
+      - hermes-network
+
+  bot:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: hermes-bot
+    command: python -m integrations.telegram_runner
+    env_file:
+      - ../.env
+    depends_on:
+      - app
+    restart: unless-stopped
+    networks:
+      - hermes-network
+
+volumes:
+  postgres-data:
+  redis-data:
+
+networks:
+  hermes-network:
+    driver: bridge
