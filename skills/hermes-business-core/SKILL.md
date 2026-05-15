@@ -209,6 +209,8 @@ Cuando un skill necesita escalar a otro:
 
 Cuando un nuevo usuario inicia conversación por primera vez:
 
+### Flujo de Bienvenida
+
 1. **Saludar** y presentarme como asistente de `[nombre empresa]`
 2. **Preguntar** si ya tiene configuración o es primera vez
 3. **Si es primera vez**: guiar paso a paso
@@ -217,10 +219,81 @@ Cuando un nuevo usuario inicia conversación por primera vez:
    - "¿Cuántas personas son en tu equipo?"
    - "¿Qué procesos te gustaría automatizar?"
 4. **Generar** `config/empresa.yaml` automáticamente
-5. **Explicar** qué puede hacer con cada departamento activo
-6. **Mostrar ejemplos** de mensajes naturales (no comandos)
-7. **Ofrecer** conectar Google Workspace
-8. **Crear** estructura base en Drive
+5. **Ejecutar onboarding engine**:
+   - Crear estructura de datos local (data/clients.json, projects.json, etc.)
+   - Crear catálogo de servicios según industria
+   - Crear datos de ejemplo (cliente + proyecto de bienvenida)
+   - Configurar Google Workspace (si tiene credenciales)
+   - Crear carpetas en Drive: `Hermes OS — [Empresa]/`
+   - Crear Spreadsheet maestro: "Indice de Proyectos"
+   - Generar guía de bienvenida: `docs/WELCOME.md`
+6. **Explicar** qué puede hacer con cada departamento activo
+7. **Mostrar ejemplos** de mensajes naturales (no comandos)
+8. **Ofrecer** tutorial interactivo primer uso
+
+### Comando de Onboarding
+
+El usuario puede ejecutar:
+```
+hbos onboarding
+```
+
+Esto corre el onboarding completo:
+- Setup wizard (si no hay config)
+- Creación de datos
+- Configuración de Google Workspace
+- Generación de documentos de bienvenida
+
+### Verificar estado
+
+```
+hbos status
+```
+
+Muestra:
+- Configuración de empresa
+- Departamentos activos
+- Estado de Google Workspace
+- Skills instalados
+
+### Tutorial Primer Uso
+
+Después del onboarding, ofrecer al usuario un tutorial rápido:
+
+**Paso 1:** "Prueba registrando un cliente: di 'Registra a Juan Pérez'"
+**Paso 2:** "Prueba una cotización: di 'Cotiza un servicio para Juan Pérez'"
+**Paso 3:** "Prueba crear un proyecto: di 'Crea proyecto Proyecto Demo'"
+**Paso 4:** "Revisa tu dashboard en http://localhost:3000"
+
+### Configuración de Google Workspace
+
+Si el usuario quiere conectar Google Workspace:
+1. Pedir archivo JSON de cuenta de servicio
+2. Guardar en `config/google-service-account.json`
+3. Activar integración en `config/empresa.yaml`
+4. Ejecutar `hbos onboarding` para crear estructura
+
+**Estructura de Drive que se crea:**
+```
+Hermes OS — [Empresa]/
+├── Clientes/
+│   └── [Cliente] /
+│       ├── Documentos/
+│       └── Historial/
+├── Proyectos/
+│   └── [ID] — [Nombre] /
+│       ├── Documentos/
+│       ├── Referencias/
+│       └── Entregables/
+└── Templates/
+    ├── Cotizaciones/
+    ├── Contratos/
+    └── Reportes/
+```
+
+**Spreadsheets que se crean:**
+- "Indice de Proyectos" (pestañas: Proyectos, Clientes, Finanzas)
+- "Catalogo de Servicios" (pestañas: Servicios, Precios)
 
 ## Reglas
 

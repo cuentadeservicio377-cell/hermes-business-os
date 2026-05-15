@@ -34,6 +34,11 @@ def main():
     setup_parser = subparsers.add_parser("setup", help="Run interactive setup wizard")
     setup_parser.add_argument("--non-interactive", action="store_true", help="Skip interactive prompts")
     
+    # Onboarding
+    onboarding_parser = subparsers.add_parser("onboarding", help="Run full onboarding (setup + data + Google Workspace)")
+    onboarding_parser.add_argument("--config", help="Path to empresa.yaml")
+    onboarding_parser.add_argument("--skip-gw", action="store_true", help="Skip Google Workspace setup")
+    
     # Doctor
     doctor_parser = subparsers.add_parser("doctor", help="Diagnose HBOS installation")
     
@@ -51,6 +56,8 @@ def main():
     elif args.command == "setup":
         wizard = SetupWizard(non_interactive=args.non_interactive)
         wizard.run()
+    elif args.command == "onboarding":
+        run_onboarding(args)
     elif args.command == "doctor":
         cmd = DoctorCommand()
         cmd.run()
@@ -61,6 +68,63 @@ def main():
     else:
         parser.print_help()
         sys.exit(1)
+
+
+def run_onboarding(args):
+    """Run the full onboarding process."""
+    print("\n🏢 Hermes Business OS — Onboarding Completo\n")
+    
+    # Step 1: Setup wizard if no config
+    config_path = Path(args.config) if args.config else None
+    
+    if not config_path or not config_path.exists():
+        existing_config = Path(__file__).parent.parent / "config" / "empresa.yaml"
+        if not existing_config.exists():
+            print("⚠️  No se encontró configuración. Iniciando setup wizard...\n")
+            wizard = SetupWizard()
+            wizard.run()
+        else:
+            print("✅ Configuración existente encontrada.\n")
+    
+    # Step 2: Run onboarding engine
+    sys.path.insert(0, str(Path(__file__).parent.parent / "skills" / "hermes-business-core" / "tools"))
+    from onboarding_engine import OnboardingEngine
+    
+    engine = OnboardingEngine(config_path=str(config_path) if config_path else None)
+    
+    if args.skip_gw:
+        # Disable Google Workspace in config temporarily
+        config = engine.config
+        if hasattr(config, '_config'):
+            config._config.setdefault("integraciones", {}).setdefault("google_workspace", {})["activo"] = False
+    
+    result = engine.run_full_onboarding()
+    
+    print("\n" + "=" * 50)
+    if result["success"] and not result["errors"]:
+        print("✅ Onboarding completado exitosamente")
+    elif result["success"]:
+        print("✅ Onboarding completado con advertencias")
+    else:
+        print("❌ Onboarding completado con errores")
+    
+    print("\nResumen de pasos:")
+    for step in result["steps"]:
+        emoji = {"info": "ℹ️", "success": "✅", "warning": "⚠️", "error": "❌"}.get(step["status"], "•")
+        print(f"  {emoji} {step['message']}")
+    
+    if result["errors"]:
+        print("\nErrores:")
+        for err in result["errors"]:
+            print(f"  ❌ {err}")
+    
+    print("\n" + "=" * 50)
+    print("\n🚀 Próximos pasos:")
+    print("  1. Revisa tu config: config/empresa.yaml")
+    print("  2. Abre el dashboard: cd dashboard && npm install && npm run dev")
+    print("  3. Inicia Hermes: hermes gateway start")
+    print("  4. Habla con tu bot en Telegram")
+    print()
 
 
 def show_status():
@@ -91,6 +155,21 @@ def show_status():
         print(f"✅ Company config: {config_file}")
     else:
         print(f"⚠️  Company config not found. Run: hbos setup")
+    
+    # Check onboarding status
+    sys.path.insert(0, str(hbos_dir / "skills" / "hermes-business-core" / "tools"))
+    try:
+        from onboarding_engine import OnboardingEngine
+        engine = OnboardingEngine()
+        status = engine.get_onboarding_status()
+        
+        print(f"\n📋 Onboarding Status:")
+        print(f"   Empresa: {status['company_name']}")
+        print(f"   Industria: {status['industry']}")
+        print(f"   Departamentos: {', '.join(status['departments_active'])}")
+        print(f"   Google Workspace: {'✅' if status['google_workspace_active'] else '❌'}")
+    except Exception as e:
+        print(f"\n⚠️  No se pudo cargar onboarding engine: {e}")
     
     print()
 

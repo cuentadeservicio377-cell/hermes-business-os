@@ -72,6 +72,7 @@ run_test "Proyectos tool imports" "python3 -c 'import sys; sys.path.insert(0, \"
 run_test "Tareas tool imports" "python3 -c 'import sys; sys.path.insert(0, \"$PROJECT_DIR/skills/hermes-operaciones/tools\"); sys.path.insert(0, \"$PROJECT_DIR/skills/hermes-business-core/tools\"); from tareas import Tareas; t = Tareas(); print(\"ok\")'"
 run_test "Checklists tool imports" "python3 -c 'import sys; sys.path.insert(0, \"$PROJECT_DIR/skills/hermes-operaciones/tools\"); sys.path.insert(0, \"$PROJECT_DIR/skills/hermes-business-core/tools\"); from checklists import Checklists; ch = Checklists(); print(\"ok\")'"
 run_test "Kami engine imports" "python3 -c 'import sys; sys.path.insert(0, \"$PROJECT_DIR/skills/hermes-documentos/tools\"); sys.path.insert(0, \"$PROJECT_DIR/skills/hermes-business-core/tools\"); from kami_engine import KamiEngine; k = KamiEngine(); print(\"ok\")'"
+run_test "Onboarding engine imports" "python3 -c 'import sys; sys.path.insert(0, \"$PROJECT_DIR/skills/hermes-business-core/tools\"); from onboarding_engine import OnboardingEngine; o = OnboardingEngine(\"$PROJECT_DIR/config/empresa.yaml.example\"); print(\"ok\")'"
 
 echo ""
 echo "4. Template Tests"
@@ -119,7 +120,7 @@ from crm import CRM; c = CRM(); import time; nombre = \"Test_\" + str(int(time.t
 
 run_test "Cotizador calculate" "python3 -c '
 import sys; sys.path.insert(0, \"$PROJECT_DIR/skills/hermes-ventas/tools\"); sys.path.insert(0, \"$PROJECT_DIR/skills/hermes-business-core/tools\");
-from cotizador import Cotizador; cot = Cotizador(); result = cot.calculate_quote([{\"codigo\": \"CON-DIA\", \"cantidad\": 1}]); assert result[\"total\"] > 0; print(result[\"total\"])
+from cotizador import Cotizador; cot = Cotizador(); result = cot.calculate_quote([{\"codigo\": \"EVT-BAS\", \"cantidad\": 1}]); assert result[\"total\"] > 0; print(result[\"total\"])
 '"
 
 run_test "Proyectos create" "python3 -c '
@@ -145,6 +146,16 @@ from router import IntentRouter; r = IntentRouter(); result = r.route(\"cotiza u
 run_test "Router route proyecto" "python3 -c '
 import sys; sys.path.insert(0, \"$PROJECT_DIR/skills/hermes-business-core/tools\");
 from router import IntentRouter; r = IntentRouter(); result = r.route(\"crea un proyecto\"); assert result == \"hermes-operaciones\"; print(result)
+'"
+
+run_test "Onboarding engine status" "python3 -c '
+import sys; sys.path.insert(0, \"$PROJECT_DIR/skills/hermes-business-core/tools\");
+from onboarding_engine import OnboardingEngine; o = OnboardingEngine(\"$PROJECT_DIR/config/empresa.yaml.example\"); status = o.get_onboarding_status(); assert status[\"config_exists\"]; print(status[\"company_name\"])
+'"
+
+run_test "Onboarding creates data files" "python3 -c '
+import sys; sys.path.insert(0, \"$PROJECT_DIR/skills/hermes-business-core/tools\");
+from onboarding_engine import OnboardingEngine; o = OnboardingEngine(\"$PROJECT_DIR/config/empresa.yaml.example\"); result = o.run_full_onboarding(); assert len(result[\"steps\"]) > 0; print(len(result[\"steps\"]))
 '"
 
 echo ""

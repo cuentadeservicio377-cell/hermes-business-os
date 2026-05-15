@@ -7,7 +7,7 @@
 | FASE 1: Fundamentos | ✅ Completada | 100% |
 | FASE 2: Departamentos Core | ✅ Completada | 100% |
 | FASE 3: Dashboard Web | ✅ Completada | 100% |
-| FASE 4: Onboarding Wizard | 🚧 En progreso | 80% |
+| FASE 4: Onboarding Wizard | ✅ Completada | 100% |
 | FASE 5: Document Engine & Templates | ✅ Completada | 90% |
 | FASE 6: Finanzas + RRHH | 🚧 En progreso | 40% |
 | FASE 7: Polish & Packaging | ⏳ Pendiente | 0% |
@@ -26,32 +26,37 @@
 - [x] .gitignore
 - [x] Instalador CLI (`hbos`) con comandos: install, setup, doctor, status
 - [x] Script de instalación one-liner (`scripts/install.sh`)
-- [x] Test suite (48/48 passing)
+- [x] Test suite (51/51 passing)
 - [x] Dockerfile
 - [x] Documentación: INSTALL.md, USER-GUIDE.md
 - [x] Primer commit del proyecto
 
 ### FASE 2: Departamentos Core
-- [x] **hermes-ventas**: CRM, Cotizador, Pipeline — herramientas Python completas
-- [x] **hermes-operaciones**: Proyectos, Tareas, Checklists — herramientas Python completas
-- [x] **hermes-documentos**: Motor Kami v3 + 5 templates HTML por industria
-- [x] Catálogos de servicios por industria (eventos, legal, consultoría, retail)
-- [x] Sistema de datos local JSON (fallback cuando no hay Google Workspace)
-- [x] Router de intenciones funcional con tests
+- [x] **hermes-ventas**: CRM, Cotizador, Pipeline
+- [x] **hermes-operaciones**: Proyectos, Tareas, Checklists
+- [x] **hermes-documentos**: Motor Kami v3 + 5 templates HTML
+- [x] Catálogos de servicios por industria
+- [x] Sistema de datos local JSON
+- [x] Router de intenciones funcional
 
 ### FASE 3: Dashboard Web
-- [x] **Next.js 15** scaffold completo con TypeScript
-- [x] **Tailwind CSS** con tema personalizado (colores primary)
-- [x] **Layout responsive** con sidebar navegable (mobile + desktop)
-- [x] **lib/data.ts** — lectura de datos JSON locales (clientes, pipeline, proyectos, tareas, config)
-- [x] **Página Dashboard** — Resumen general con stats cards, clientes recientes, pipeline, proyectos, tareas
-- [x] **Página Clientes** — Tabla completa con filtros por estado, contacto, fecha
-- [x] **Página Pipeline** — Visualización por etapas, valor total, tabla de oportunidades
-- [x] **Página Proyectos** — Grid de proyectos con barras de progreso, estados, fechas
-- [x] **Página Tareas** — Lista con checkboxes, prioridades, vencidas destacadas
-- [x] **Página Configuración** — Info de empresa, contacto, branding, departamentos, integraciones
-- [x] **API /api/data** — Endpoint JSON para consumo externo
-- [x] **Componentes reutilizables** — Nav, StatCard
+- [x] **Next.js 15** + TypeScript + Tailwind CSS
+- [x] 6 vistas completas: Dashboard, Clientes, Pipeline, Proyectos, Tareas, Configuración
+- [x] Layout responsive con sidebar
+- [x] API REST para datos locales
+
+### FASE 4: Onboarding Wizard
+- [x] **Onboarding Engine** (`onboarding_engine.py`)
+  - Validación de config
+  - Creación de estructura de datos local (7 archivos JSON)
+  - Creación de catálogo de servicios por industria
+  - Datos de ejemplo (cliente + proyecto de bienvenida)
+  - Configuración de Google Workspace (Drive + Sheets)
+  - Generación de guía de bienvenida (`docs/WELCOME.md`)
+- [x] **Comando `hbos onboarding`** — Onboarding completo en un paso
+- [x] **Comando `hbos status`** — Muestra estado de onboarding
+- [x] **Skill actualizado** — Flujo de bienvenida conversacional integrado
+- [x] **Tutorial interactivo** — Pasos para primer uso
 
 ### FASE 5: Document Engine & Templates
 - [x] Motor Kami v3 con WeasyPrint + fallback HTML
@@ -61,8 +66,7 @@
 
 ## En Progreso 🚧
 
-- [ ] Onboarding wizard completo (integrado con herramientas)
-- [ ] Finanzas + RRHH — expandir herramientas Python
+- [ ] Finanzas + RRHH — expandir herramientas Python beta
 
 ---
 
