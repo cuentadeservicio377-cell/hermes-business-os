@@ -1,0 +1,116 @@
+# Hermes Business OS — Configuración de Empresa
+# Copia este archivo a config/empresa.yaml y personalízalo
+
+empresa:
+  nombre: "Mi Empresa"
+  industria: "eventos"        # eventos | legal | retail | consultoria | salud | tecnologia | otro
+  tamano: "pequena"           # solopreneur | pequena | mediana
+  moneda: "MXN"               # MXN | USD | EUR | COP | ARS | etc.
+  idioma: "es"
+  timezone: "America/Mexico_City"
+  
+  contacto:
+    email: "hola@miempresa.com"
+    telefono: "+52 55 1234 5678"
+    direccion: "Ciudad de México, México"
+    rfc: ""
+    
+  branding:
+    color_primario: "#2563EB"
+    color_secundario: "#1E40AF"
+    logo_url: null
+    firma_email: |
+      --
+      Mi Empresa
+      hola@miempresa.com
+      +52 55 1234 5678
+
+departamentos:
+  ventas:
+    activo: true
+    descripcion: "CRM, cotizaciones y seguimiento"
+    pipeline:
+      - lead
+      - prospecto
+      - cotizado
+      - negociacion
+      - contratado
+      - en_produccion
+      - completado
+      - entregado
+    
+  operaciones:
+    activo: true
+    descripcion: "Proyectos, tareas y logística"
+    checklists:
+      pre_proyecto:
+        - "Definir alcance y entregables"
+        - "Asignar responsables"
+        - "Establecer fechas clave"
+        - "Confirmar recursos"
+      durante_proyecto:
+        - "Seguimiento diario"
+        - "Comunicación con cliente"
+        - "Control de calidad"
+      post_proyecto:
+        - "Cierre administrativo"
+        - "Evaluación y feedback"
+        - "Archivar documentos"
+    
+  documentos:
+    activo: true
+    descripcion: "Generación de documentos"
+    templates_disponibles:
+      - cotizacion
+      - contrato
+      - propuesta
+      - reporte
+      - carta
+      - recibo
+    
+  finanzas:
+    activo: false
+    descripcion: "Presupuestos y reportes"
+    
+  rrhh:
+    activo: false
+    descripcion: "Nómina y equipos"
+
+integraciones:
+  google_workspace:
+    activo: false
+    cuenta_servicio: "config/google-service-account.json"
+    carpeta_drive: "Hermes OS"
+    spreadsheet_maestro: "Indice de Proyectos"
+    spreadsheet_catalogo: "Catalogo de Servicios"
+    
+  telegram:
+    activo: true
+    
+  calendario:
+    activo: false
+    proveedor: "google"
+    
+  email:
+    activo: false
+    smtp_host: "smtp.gmail.com"
+    smtp_port: 587
+    smtp_user: ""
+    smtp_password: ""
+
+documentos:
+  iva_incluido: true
+  iva_porcentaje: 16
+  formato_moneda: "${:,.2f} {}"  # Python format string
+  
+  # Templates por defecto
+  templates:
+    cotizacion:
+      validez_dias: 15
+      vigencia: "15 días naturales"
+      notas: "Precios sujetos a cambio sin previo aviso."
+    
+    contrato:
+      vigencia: "Por tiempo indefinido"
+      jurisdiccion: "Ciudad de México"
+      forma_pago: "50% anticipo, 50% contra entrega"
