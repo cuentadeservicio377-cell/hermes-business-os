@@ -7,7 +7,7 @@ metadata:
     tags: [hermes-business-os, rrhh, nomina, equipos, enterprise]
     related_skills: [hermes-business-core, hermes-operaciones]
     depends_on: [hermes-business-core]
-    status: beta
+    status: stable
 ---
 
 # Skill: RRHH — Hermes Business OS v2.0
@@ -24,14 +24,26 @@ Me activo cuando:
 - Hay que registrar asistencia
 - Se forma un nuevo equipo
 
+## Herramientas Python
+
+### `tools/equipos.py`
+- `Equipos.add_member()` — Registra nuevo miembro del equipo
+- `Equipos.assign_to_project()` — Asigna miembro a proyecto
+- `Equipos.get_team_summary()` — Resumen del equipo
+
+### `tools/asistencia.py`
+- `Asistencia.register_entry()` — Registra asistencia/horas trabajadas
+- `Asistencia.calculate_payroll()` — Calcula nómina por periodo
+- `Asistencia.get_attendance_summary()` — Resumen de asistencia global
+
 ## Flujo 1: Asignación de Personal
 
 ### Acciones
 
 1. Ver requerimientos del proyecto (fecha, roles, cantidad)
-2. Buscar personal disponible
-3. Confirmar asistencia
-4. Registrar en Sheets
+2. Buscar personal disponible con `equipos.list_members()`
+3. Asignar con `equipos.assign_to_project()`
+4. Guardar en JSON local (opcional: sync a Sheets)
 5. Notificar al equipo
 
 ### Roles típicos
@@ -55,11 +67,10 @@ Me activo cuando:
 ### Acciones
 
 1. Cargar personal asignado al proyecto
-2. Calcular horas/días trabajados
-3. Aplicar tarifas por rol
-4. Calcular totales
-5. Generar reporte de nómina
-6. Registrar pagos realizados
+2. Registrar asistencia con `asistencia.register_entry()`
+3. Calcular nómina con `asistencia.calculate_payroll()`
+4. Generar reporte de nómina
+5. Registrar pagos realizados
 
 ### Formato de Nómina
 
@@ -78,7 +89,7 @@ Total nómina: $XXX,XXX
 
 ### Acciones
 
-- Registrar entrada/salida
+- Registrar entrada/salida con `asistencia.register_entry()`
 - Registrar ausencias
 - Calcular horas trabajadas
 - Alertar faltas

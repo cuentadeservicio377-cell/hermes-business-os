@@ -73,6 +73,11 @@ run_test "Tareas tool imports" "python3 -c 'import sys; sys.path.insert(0, \"$PR
 run_test "Checklists tool imports" "python3 -c 'import sys; sys.path.insert(0, \"$PROJECT_DIR/skills/hermes-operaciones/tools\"); sys.path.insert(0, \"$PROJECT_DIR/skills/hermes-business-core/tools\"); from checklists import Checklists; ch = Checklists(); print(\"ok\")'"
 run_test "Kami engine imports" "python3 -c 'import sys; sys.path.insert(0, \"$PROJECT_DIR/skills/hermes-documentos/tools\"); sys.path.insert(0, \"$PROJECT_DIR/skills/hermes-business-core/tools\"); from kami_engine import KamiEngine; k = KamiEngine(); print(\"ok\")'"
 run_test "Onboarding engine imports" "python3 -c 'import sys; sys.path.insert(0, \"$PROJECT_DIR/skills/hermes-business-core/tools\"); from onboarding_engine import OnboardingEngine; o = OnboardingEngine(\"$PROJECT_DIR/config/empresa.yaml.example\"); print(\"ok\")'"
+run_test "Presupuestos tool imports" "python3 -c 'import sys; sys.path.insert(0, \"$PROJECT_DIR/skills/hermes-finanzas/tools\"); sys.path.insert(0, \"$PROJECT_DIR/skills/hermes-business-core/tools\"); from presupuestos import Presupuestos; p = Presupuestos(); print(\"ok\")'"
+run_test "Pagos tool imports" "python3 -c 'import sys; sys.path.insert(0, \"$PROJECT_DIR/skills/hermes-finanzas/tools\"); sys.path.insert(0, \"$PROJECT_DIR/skills/hermes-business-core/tools\"); from pagos import Pagos; p = Pagos(); print(\"ok\")'"
+run_test "Reportes tool imports" "python3 -c 'import sys; sys.path.insert(0, \"$PROJECT_DIR/skills/hermes-finanzas/tools\"); sys.path.insert(0, \"$PROJECT_DIR/skills/hermes-business-core/tools\"); from reportes import ReportesFinancieros; r = ReportesFinancieros(); print(\"ok\")'"
+run_test "Equipos tool imports" "python3 -c 'import sys; sys.path.insert(0, \"$PROJECT_DIR/skills/hermes-rrhh/tools\"); sys.path.insert(0, \"$PROJECT_DIR/skills/hermes-business-core/tools\"); from equipos import Equipos; e = Equipos(); print(\"ok\")'"
+run_test "Asistencia tool imports" "python3 -c 'import sys; sys.path.insert(0, \"$PROJECT_DIR/skills/hermes-rrhh/tools\"); sys.path.insert(0, \"$PROJECT_DIR/skills/hermes-business-core/tools\"); from asistencia import Asistencia; a = Asistencia(); print(\"ok\")'"
 
 echo ""
 echo "4. Template Tests"
@@ -156,6 +161,26 @@ from onboarding_engine import OnboardingEngine; o = OnboardingEngine(\"$PROJECT_
 run_test "Onboarding creates data files" "python3 -c '
 import sys; sys.path.insert(0, \"$PROJECT_DIR/skills/hermes-business-core/tools\");
 from onboarding_engine import OnboardingEngine; o = OnboardingEngine(\"$PROJECT_DIR/config/empresa.yaml.example\"); result = o.run_full_onboarding(); assert len(result[\"steps\"]) > 0; print(len(result[\"steps\"]))
+'"
+
+run_test "Presupuestos create budget" "python3 -c '
+import sys; sys.path.insert(0, \"$PROJECT_DIR/skills/hermes-finanzas/tools\"); sys.path.insert(0, \"$PROJECT_DIR/skills/hermes-business-core/tools\");
+from presupuestos import Presupuestos; p = Presupuestos(); result = p.create_budget(\"PROJ-001\", \"Proyecto Test\", [{\"concepto\": \"Servicio\", \"monto\": 1000}], [{\"concepto\": \"Costos\", \"monto\": 500, \"tipo\": \"material\"}]); assert result[\"success\"]; print(result[\"presupuesto\"][\"id\"])
+'"
+
+run_test "Pagos register and transaction" "python3 -c '
+import sys; sys.path.insert(0, \"$PROJECT_DIR/skills/hermes-finanzas/tools\"); sys.path.insert(0, \"$PROJECT_DIR/skills/hermes-business-core/tools\");
+from pagos import Pagos; p = Pagos(); result = p.register_payment(\"PROJ-001\", \"Proyecto Test\", \"CLI-001\", \"Cliente Test\", 1000, \"Pago servicio\"); assert result[\"success\"]; tx = p.add_transaction(result[\"pago\"][\"id\"], 500); assert tx[\"success\"]; print(tx[\"pago\"][\"monto_pagado\"])
+'"
+
+run_test "Equipos add member" "python3 -c '
+import sys; sys.path.insert(0, \"$PROJECT_DIR/skills/hermes-rrhh/tools\"); sys.path.insert(0, \"$PROJECT_DIR/skills/hermes-business-core/tools\");
+from equipos import Equipos; e = Equipos(); result = e.add_member(\"Juan Perez\", rol=\"Coordinador\", tarifa_dia=500); assert result[\"success\"]; print(result[\"miembro\"][\"id\"])
+'"
+
+run_test "Asistencia register and payroll" "python3 -c '
+import sys; sys.path.insert(0, \"$PROJECT_DIR/skills/hermes-rrhh/tools\"); sys.path.insert(0, \"$PROJECT_DIR/skills/hermes-business-core/tools\");
+from asistencia import Asistencia; a = Asistencia(); result = a.register_entry(\"EMP-001\", \"Juan Perez\", horas=8); assert result[\"success\"]; print(result[\"registro\"][\"id\"])
 '"
 
 echo ""
