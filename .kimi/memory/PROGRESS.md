@@ -2,23 +2,39 @@
 
 ## Sesión Actual: 2026-05-15
 
-### Fase Completada: ONBOARDING + PLAN
+### Fases Completadas: ONBOARDING + PLAN + FASE 2 (Departamentos Core)
 
-Se completó la fase inicial del proyecto con:
+#### FASE 1: Fundamentos ✅
+- Estructura base del proyecto
+- 6 skills nativos de Hermes (SKILL.md)
+- Instalador CLI (hbos)
+- Documentación inicial
+- Test suite: 35/35 passing
 
-1. **Investigación exhaustiva** de 6 repositorios previos del usuario
-2. **Análisis de fallas** de intentos anteriores (documentado en PLAN.md)
-3. **Arquitectura definida** basada en skills nativos de Hermes Agent (NO fork, NO backend separado)
-4. **Plan maestro** con 7 fases y 12 semanas de trabajo
-5. **Estructura base** creada con 28 archivos, 3691+ líneas
+#### FASE 2: Departamentos Core ✅
+- **hermes-ventas**: CRM, Cotizador, Pipeline — herramientas Python completas
+- **hermes-operaciones**: Proyectos, Tareas, Checklists — herramientas Python completas
+- **hermes-documentos**: Motor Kami v3 + 5 templates HTML por industria
+- Catálogos de servicios por industria (eventos, legal, consultoría, retail)
+- Sistema de datos local JSON (fallback cuando no hay Google Workspace)
+- Router de intenciones funcional con tests
 
-### Checkpoint: `dbf2aaa`
+### Checkpoint: FASE 2 completa
 
-Primer commit con la fundación completa del proyecto.
+**Stats del proyecto:**
+- 35 archivos Python
+- 6 templates HTML
+- 35/35 tests passing
+- ~8,000+ líneas de código
 
 ### Próxima Fase
 
-**FASE 2: Departamentos Core**
-- Completar herramientas Python para cada skill
-- Crear templates HTML por industria
-- Probar integración end-to-end con Hermes Agent
+**FASE 3: Dashboard Web** (Next.js 15)
+- Scaffold de aplicación Next.js
+- Vistas: clientes, pipeline, proyectos, tareas
+- Autenticación básica
+- Comunicación con datos locales
+
+**FASE 4: Onboarding Wizard** (completar)
+- Flujo conversacional integrado con herramientas
+- Generación automática de estructura de carpetas

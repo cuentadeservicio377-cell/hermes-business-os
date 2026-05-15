@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Propuesta de Consultoría — {{proyecto.nombre}}</title>
+    <style>
+        @page { size: letter; margin: 2cm 2.5cm; @bottom-center { content: "Página " counter(page) " de " counter(pages); font-size: 9pt; color: #999; } }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 11pt; line-height: 1.6; color: #333; }
+        .cover { text-align: center; padding: 60px 0 40px 0; border-bottom: 4px solid {{empresa.branding.color_primario}}; }
+        .cover h1 { font-size: 28pt; color: {{empresa.branding.color_primario}}; margin-bottom: 10px; font-weight: 300; }
+        .cover .tagline { font-size: 12pt; color: #666; font-style: italic; margin-bottom: 30px; }
+        .cover .meta { font-size: 10pt; color: #888; }
+        .section { margin: 30px 0; }
+        h2 { color: {{empresa.branding.color_primario}}; font-size: 15pt; margin: 30px 0 15px 0; font-weight: 600; }
+        h3 { font-size: 12pt; color: #444; margin: 20px 0 10px 0; font-weight: 600; }
+        p { margin: 12px 0; text-align: justify; }
+        .client-info { background: #f5f5f5; padding: 20px; margin: 20px 0; border-radius: 4px; }
+        .client-info h3 { margin-top: 0; color: {{empresa.branding.color_primario}}; }
+        .scope-list { margin: 15px 0; }
+        .scope-list li { margin: 10px 0; padding-left: 10px; }
+        .deliverable { background: #e8f5e9; border-left: 4px solid #4caf50; padding: 12px 15px; margin: 10px 0; }
+        .deliverable h4 { color: #2e7d32; margin-bottom: 5px; font-size: 11pt; }
+        .timeline { margin: 20px 0; }
+        .timeline-item { display: flex; margin: 15px 0; align-items: flex-start; }
+        .timeline-phase { background: {{empresa.branding.color_primario}}; color: white; padding: 5px 12px; border-radius: 20px; font-size: 9pt; font-weight: 600; min-width: 100px; text-align: center; }
+        .timeline-desc { margin-left: 15px; flex: 1; }
+        .timeline-desc h4 { font-size: 11pt; margin-bottom: 3px; }
+        .timeline-desc p { font-size: 10pt; color: #666; margin: 0; }
+        .investment { background: #fff3e0; border: 2px solid #ff9800; padding: 20px; margin: 25px 0; border-radius: 4px; }
+        .investment h3 { color: #e65100; margin-top: 0; }
+        .investment .amount { font-size: 24pt; font-weight: 700; color: #e65100; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 10pt; }
+        th { background: {{empresa.branding.color_primario}}; color: white; padding: 10px; text-align: left; font-size: 9pt; text-transform: uppercase; }
+        td { padding: 10px; border-bottom: 1px solid #e0e0e0; }
+        .signature-section { margin-top: 50px; page-break-inside: avoid; }
+        .signature-row { display: flex; justify-content: space-between; margin-top: 30px; }
+        .signature-box { width: 45%; }
+        .signature-line { border-top: 1px solid #333; margin-top: 50px; padding-top: 10px; font-size: 10pt; }
+        .footer { margin-top: 40px; padding-top: 15px; border-top: 1px solid #e0e0e0; text-align: center; font-size: 8pt; color: #999; }
+    </style>
+</head>
+<body>
+    <div class="cover">
+        <h1>Propuesta de Consultoría</h1>
+        <p class="tagline">{{proyecto.nombre}}</p>
+        <p class="meta">{{empresa.nombre}} | {{fecha.hoy}}</p>
+    </div>
+    
+    <div class="client-info">
+        <h3>📋 Información del Cliente</h3>
+        <p><strong>Empresa:</strong> {{cliente.nombre}}</p>
+        <p><strong>Contacto:</strong> {{cliente.contacto}}</p>
+        <p><strong>Industria:</strong> {{cliente.industria}}</p>
+    </div>
+    
+    <div class="section">
+        <h2>1. Resumen Ejecutivo</h2>
+        <p>{{documento.resumen_ejecutivo}}</p>
+    </div>
+    
+    <div class="section">
+        <h2>2. Alcance del Proyecto</h2>
+        <p>Los servicios a proporcionar incluyen:</p>
+        <ul class="scope-list">
+            {{#each servicios}}
+            <li><strong>{{nombre}}:</strong> {{descripcion}}</li>
+            {{/each}}
+        </ul>
+    </div>
+    
+    <div class="section">
+        <h2>3. Entregables</h2>
+        {{#each entregables}}
+        <div class="deliverable">
+            <h4>{{nombre}}</h4>
+            <p>{{descripcion}}</p>
+        </div>
+        {{/each}}
+    </div>
+    
+    <div class="section">
+        <h2>4. Cronograma</h2>
+        <div class="timeline">
+            {{#each fases}}
+            <div class="timeline-item">
+                <div class="timeline-phase">{{fase}}</div>
+                <div class="timeline-desc">
+                    <h4>{{nombre}}</h4>
+                    <p>{{descripcion}} — <strong>{{duracion}}</strong></p>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+    
+    <div class="investment">
+        <h3>💰 Inversión</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Concepto</th>
+                    <th style="text-align: right;">Monto</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each servicios}}
+                <tr>
+                    <td>{{nombre}}</td>
+                    <td style="text-align: right;">{{../moneda}} {{total_linea}}</td>
+                </tr>
+                {{/each}}
+                <tr style="font-weight: bold;">
+                    <td>Subtotal</td>
+                    <td style="text-align: right;">{{moneda}} {{calculo.subtotal}}</td>
+                </tr>
+                <tr>
+                    <td>IVA ({{calculo.iva_porcentaje}}%)</td>
+                    <td style="text-align: right;">{{moneda}} {{calculo.iva_monto}}</td>
+                </tr>
+                <tr style="font-weight: bold; font-size: 12pt; background: #fff3e0;">
+                    <td>INVERSIÓN TOTAL</td>
+                    <td style="text-align: right;">{{moneda}} {{calculo.total}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="font-size: 10pt; margin-top: 15px;"><strong>Forma de pago:</strong> 50% al inicio, 25% a la mitad del proyecto, 25% contra entrega final.</p>
+    </div>
+    
+    <div class="section">
+        <h2>5. Términos y Condiciones</h2>
+        <ol>
+            <li>Esta propuesta tiene una validez de {{documento.validez_dias}} días naturales.</li>
+            <li>Los precios están en {{moneda}}.</li>
+            <li>Cualquier trabajo adicional al alcance definido será cotizado por separado.</li>
+            <li>El cliente se compromete a proporcionar la información y accesos necesarios en los tiempos acordados.</li>
+            <li>La confidencialidad de la información será resguardada conforme al acuerdo de confidencialidad.</li>
+        </ol>
+    </div>
+    
+    <div class="signature-section">
+        <h2>Aceptación</h2>
+        <div class="signature-row">
+            <div class="signature-box">
+                <div class="signature-line">
+                    <strong>{{cliente.nombre}}</strong><br>
+                    Cliente<br>
+                    Fecha: _______________
+                </div>
+            </div>
+            <div class="signature-box">
+                <div class="signature-line">
+                    <strong>{{empresa.nombre}}</strong><br>
+                    Consultor Responsable<br>
+                    Fecha: _______________
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>{{empresa.nombre}} — {{empresa.contacto.telefono}} — {{empresa.contacto.email}}</p>
+        <p>Documento generado por Hermes Business OS — {{fecha.hoy}}</p>
+    </div>
+</body>
+</html>

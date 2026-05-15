@@ -17,7 +17,10 @@ try:
 except ImportError:
     GOOGLE_AVAILABLE = False
 
-from .config_loader import get_config
+try:
+    from .config_loader import get_config
+except ImportError:
+    from config_loader import get_config
 
 
 class GoogleWorkspace:

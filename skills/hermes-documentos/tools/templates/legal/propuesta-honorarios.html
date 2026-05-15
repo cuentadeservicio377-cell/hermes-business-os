@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Propuesta de Honorarios — {{cliente.nombre}}</title>
+    <style>
+        @page { size: letter; margin: 2.5cm 2.5cm 2cm 2.5cm; @bottom-center { content: "Página " counter(page) " de " counter(pages); font-size: 9pt; color: #666; } }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Georgia', 'Times New Roman', serif; font-size: 11pt; line-height: 1.7; color: #222; }
+        .header { text-align: center; border-bottom: 2px solid #1a237e; padding-bottom: 25px; margin-bottom: 30px; }
+        .header h1 { font-size: 20pt; color: #1a237e; font-weight: 700; margin-bottom: 8px; letter-spacing: 1px; }
+        .header .subtitle { font-size: 12pt; color: #555; font-style: italic; }
+        .header .date { font-size: 10pt; color: #777; margin-top: 10px; }
+        .reference-box { background: #f5f5f5; border: 1px solid #ddd; padding: 15px 20px; margin: 20px 0; font-size: 10pt; }
+        .reference-box p { margin: 4px 0; }
+        h2 { color: #1a237e; font-size: 13pt; margin: 30px 0 15px 0; padding-bottom: 6px; border-bottom: 1px solid #c5cae9; font-weight: 700; }
+        h3 { font-size: 11pt; color: #333; margin: 20px 0 10px 0; font-weight: 600; }
+        p { margin: 12px 0; text-align: justify; }
+        .party { margin: 15px 0; padding-left: 20px; }
+        .party p { margin: 3px 0; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 10pt; }
+        th { background: #1a237e; color: white; padding: 10px 12px; text-align: left; font-weight: 600; font-size: 9pt; text-transform: uppercase; }
+        td { padding: 10px 12px; border-bottom: 1px solid #e0e0e0; }
+        tr:nth-child(even) { background: #f8f9fa; }
+        .totals { margin-top: 25px; text-align: right; }
+        .totals .line { margin: 6px 0; font-size: 10pt; }
+        .totals .grand-total { font-size: 13pt; font-weight: 700; color: #1a237e; border-top: 2px solid #1a237e; padding-top: 10px; margin-top: 10px; }
+        .terms { margin: 25px 0; padding: 20px; background: #fafafa; border: 1px solid #e0e0e0; }
+        .terms h3 { margin-top: 0; color: #1a237e; }
+        .terms ol { margin-left: 25px; }
+        .terms li { margin: 8px 0; }
+        .signature-section { margin-top: 60px; page-break-inside: avoid; }
+        .signature-row { display: flex; justify-content: space-between; margin-top: 40px; }
+        .signature-box { width: 42%; }
+        .signature-line { border-top: 1px solid #333; margin-top: 60px; padding-top: 10px; font-size: 10pt; }
+        .footer { margin-top: 50px; padding-top: 15px; border-top: 1px solid #ddd; text-align: center; font-size: 8pt; color: #888; }
+        .confidential { text-align: center; font-size: 8pt; color: #999; margin-top: 30px; font-style: italic; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>{{empresa.nombre}}</h1>
+        <p class="subtitle">Propuesta de Servicios Legales</p>
+        <p class="date">{{fecha.hoy}}</p>
+    </div>
+    
+    <div class="reference-box">
+        <p><strong>Referencia:</strong> {{documento.id}}</p>
+        <p><strong>Asunto:</strong> {{proyecto.asunto}}</p>
+        <p><strong>Cliente:</strong> {{cliente.nombre}}</p>
+    </div>
+    
+    <p>Estimado(a) <strong>{{cliente.nombre}}</strong>:</p>
+    
+    <p>Por medio de la presente, <strong>{{empresa.nombre}}</strong> se complace en presentarle esta propuesta de servicios legales relativos a <strong>{{proyecto.asunto}}</strong>.</p>
+    
+    <h2>I. Descripción de los Servicios</h2>
+    
+    <p>Los servicios a proporcionar incluyen, de manera enunciativa mas no limitativa, los siguientes:</p>
+    
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 5%;">#</th>
+                <th style="width: 55%;">Servicio</th>
+                <th style="width: 20%;">Modalidad</th>
+                <th style="width: 20%; text-align: right;">Honorarios</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each servicios}}
+            <tr>
+                <td>{{@index_plus_1}}</td>
+                <td><strong>{{nombre}}</strong><br><small>{{descripcion}}</small></td>
+                <td>{{modalidad}}</td>
+                <td style="text-align: right;">{{../moneda}} {{total_linea}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    
+    <div class="totals">
+        <div class="line">Subtotal: <strong>{{moneda}} {{calculo.subtotal}}</strong></div>
+        <div class="line">IVA ({{calculo.iva_porcentaje}}%): <strong>{{moneda}} {{calculo.iva_monto}}</strong></div>
+        <div class="line grand-total">TOTAL DE HONORARIOS: <strong>{{moneda}} {{calculo.total}}</strong></div>
+    </div>
+    
+    <h2>II. Forma de Pago</h2>
+    
+    <p>Los honorarios se liquidarán de la siguiente manera:</p>
+    <ol>
+        <li><strong>Anticipo:</strong> 50% del monto total al momento de la firma del contrato de prestación de servicios.</li>
+        <li><strong>Final:</strong> 50% restante contra entrega de los servicios convenidos o en las parcialidades que se acuerden por escrito.</li>
+    </ol>
+    
+    <h2>III. Términos y Condiciones</h2>
+    
+    <div class="terms">
+        <ol>
+            <li>Los honorarios señalados no incluyen gastos y costas judiciales, los cuales serán por cuenta del cliente.</li>
+            <li>Los gastos de traslado, viáticos y hospedaje, en su caso, serán previamente autorizados y facturados por separado.</li>
+            <li>El término para la prestación de los servicios será el razonable para cada etapa del procedimiento.</li>
+            <li>Esta propuesta tiene una vigencia de {{documento.validez_dias}} días naturales a partir de la fecha de emisión.</li>
+            <li>El incumplimiento en el pago de honorarios podrá dar lugar a la suspensión de los servicios.</li>
+            <li>La relación profesional se regirá por las disposiciones del Código Federal de Procedimientos Civiles y la Ley Federal de Protección al Consumidor, en lo aplicable.</li>
+        </ol>
+    </div>
+    
+    <h2>IV. Aceptación</h2>
+    
+    <p>Para efectos de dar inicio a la prestación de los servicios, se requiere la firma de esta propuesta y el pago del anticipo correspondiente.</p>
+    
+    <div class="signature-section">
+        <div class="signature-row">
+            <div class="signature-box">
+                <p><strong>POR EL CLIENTE:</strong></p>
+                <div class="signature-line">
+                    <strong>{{cliente.nombre}}</strong><br>
+                    Representante Legal / Apoderado<br><br>
+                    Nombre: _________________________<br>
+                    Firma: __________________________<br>
+                    Fecha: __________________________
+                </div>
+            </div>
+            <div class="signature-box">
+                <p><strong>POR EL PRESTADOR:</strong></p>
+                <div class="signature-line">
+                    <strong>{{empresa.nombre}}</strong><br>
+                    Abogado Responsable<br><br>
+                    Nombre: _________________________<br>
+                    Cédula Profesional: ______________<br>
+                    Firma: __________________________<br>
+                    Fecha: __________________________
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <p class="confidential">Documento Confidencial — Propiedad de {{empresa.nombre}}</p>
+    
+    <div class="footer">
+        <p>{{empresa.nombre}} | {{empresa.contacto.direccion}} | {{empresa.contacto.telefono}}</p>
+        <p>Documento generado por Hermes Business OS — {{fecha.hoy}}</p>
+    </div>
+</body>
+</html>

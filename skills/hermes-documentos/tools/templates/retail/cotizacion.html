@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Cotización — {{cliente.nombre}}</title>
+    <style>
+        @page { size: letter; margin: 1.5cm 2cm; @bottom-center { content: "Página " counter(page) " de " counter(pages); font-size: 9pt; color: #999; } }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 10pt; line-height: 1.5; color: #333; }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid {{empresa.branding.color_primario}}; padding-bottom: 15px; margin-bottom: 20px; }
+        .company-info h1 { color: {{empresa.branding.color_primario}}; font-size: 18pt; margin: 0; }
+        .company-info p { color: #666; font-size: 8pt; margin: 2px 0; }
+        .doc-info { text-align: right; }
+        .doc-info .doc-type { font-size: 14pt; font-weight: 700; color: {{empresa.branding.color_primario}}; }
+        .doc-info .doc-id { font-size: 9pt; color: #999; }
+        .client-info { margin: 15px 0; font-size: 9pt; }
+        .client-info p { margin: 2px 0; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 9pt; }
+        th { background: {{empresa.branding.color_primario}}; color: white; padding: 8px 10px; text-align: left; font-size: 8pt; text-transform: uppercase; }
+        td { padding: 8px 10px; border-bottom: 1px solid #e0e0e0; }
+        tr:nth-child(even) { background: #f8f9fa; }
+        .totals { margin-top: 15px; text-align: right; }
+        .totals .line { margin: 4px 0; font-size: 9pt; }
+        .totals .grand-total { font-size: 12pt; font-weight: 700; color: {{empresa.branding.color_primario}}; border-top: 2px solid {{empresa.branding.color_primario}}; padding-top: 8px; margin-top: 8px; }
+        .terms { font-size: 8pt; color: #666; margin-top: 20px; padding-top: 15px; border-top: 1px solid #e0e0e0; }
+        .footer { margin-top: 30px; text-align: center; font-size: 7pt; color: #999; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="company-info">
+            <h1>{{empresa.nombre}}</h1>
+            <p>{{empresa.contacto.direccion}}</p>
+            <p>{{empresa.contacto.telefono}} | {{empresa.contacto.email}}</p>
+        </div>
+        <div class="doc-info">
+            <div class="doc-type">COTIZACIÓN</div>
+            <div class="doc-id">{{documento.id}} | {{fecha.hoy}}</div>
+        </div>
+    </div>
+    <div class="client-info">
+        <p><strong>Cliente:</strong> {{cliente.nombre}}</p>
+        <p><strong>Dirección:</strong> {{cliente.direccion}}</p>
+        <p><strong>Teléfono:</strong> {{cliente.telefono}}</p>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 8%;">SKU</th>
+                <th style="width: 40%;">Producto</th>
+                <th style="width: 12%;">Cant.</th>
+                <th style="width: 15%; text-align: right;">Precio Unit.</th>
+                <th style="width: 10%; text-align: right;">Desc.</th>
+                <th style="width: 15%; text-align: right;">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each servicios}}
+            <tr>
+                <td>{{codigo}}</td>
+                <td><strong>{{nombre}}</strong><br><small>{{descripcion}}</small></td>
+                <td>{{cantidad}} {{unidad}}</td>
+                <td style="text-align: right;">{{../moneda}} {{precio_unitario}}</td>
+                <td style="text-align: right;">{{descuento}}%</td>
+                <td style="text-align: right;">{{../moneda}} {{total_linea}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <div class="totals">
+        <div class="line">Subtotal: {{moneda}} {{calculo.subtotal}}</div>
+        {{#if calculo.descuento_porcentaje}}
+        <div class="line">Descuento: -{{moneda}} {{calculo.descuento_monto}}</div>
+        {{/if}}
+        <div class="line">Envío: {{moneda}} {{envio}}</div>
+        <div class="line">IVA ({{calculo.iva_porcentaje}}%): {{moneda}} {{calculo.iva_monto}}</div>
+        <div class="line grand-total">TOTAL: {{moneda}} {{calculo.total}}</div>
+    </div>
+    <div class="terms">
+        <p><strong>Términos:</strong></p>
+        <p>• Cotización válida por {{documento.validez_dias}} días.</p>
+        <p>• Precios en {{moneda}}.</p>
+        <p>• Entrega: {{documento.tiempo_entrega}}.</p>
+        <p>• Garantía: {{documento.garantia}}.</p>
+    </div>
+    <div class="footer">
+        <p>{{empresa.nombre}} — {{empresa.contacto.telefono}}</p>
+        <p>Documento generado por Hermes Business OS — {{fecha.hoy}}</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{{documento.titulo}}</title>
+    <style>
+        @page {
+            size: letter;
+            margin: 2cm 2.5cm;
+            @bottom-center {
+                content: "Página " counter(page) " de " counter(pages);
+                font-size: 9pt;
+                color: #999;
+            }
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 11pt; line-height: 1.6; color: #333; }
+        .header { border-bottom: 3px solid {{empresa.branding.color_primario}}; padding-bottom: 20px; margin-bottom: 30px; }
+        .header-top { display: flex; justify-content: space-between; align-items: flex-start; }
+        .company-info h1 { color: {{empresa.branding.color_primario}}; font-size: 24pt; margin: 0 0 5px 0; font-weight: 700; }
+        .company-info p { color: #666; font-size: 9pt; margin: 2px 0; }
+        .document-meta { text-align: right; }
+        .document-meta .doc-id { font-size: 10pt; color: #999; font-family: monospace; }
+        .document-meta .doc-date { font-size: 10pt; color: #666; }
+        .client-box { background: #f8f9fa; border-left: 4px solid {{empresa.branding.color_primario}}; padding: 15px 20px; margin: 20px 0; }
+        .client-box h3 { color: {{empresa.branding.color_primario}}; font-size: 11pt; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .client-box p { margin: 3px 0; font-size: 10pt; }
+        h2 { color: {{empresa.branding.color_primario}}; font-size: 14pt; margin: 25px 0 15px 0; padding-bottom: 8px; border-bottom: 1px solid #e0e0e0; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 10pt; }
+        thead { display: table-header-group; }
+        th { background: {{empresa.branding.color_primario}}; color: white; padding: 10px 12px; text-align: left; font-weight: 600; font-size: 9pt; text-transform: uppercase; letter-spacing: 0.5px; }
+        td { padding: 10px 12px; border-bottom: 1px solid #e0e0e0; }
+        tr:nth-child(even) { background: #f8f9fa; }
+        .totals { margin-top: 20px; text-align: right; }
+        .totals .line { display: flex; justify-content: flex-end; align-items: center; margin: 5px 0; font-size: 10pt; }
+        .totals .line .label { color: #666; margin-right: 20px; }
+        .totals .line .value { min-width: 120px; text-align: right; }
+        .totals .grand-total { font-size: 14pt; font-weight: 700; color: {{empresa.branding.color_primario}}; border-top: 2px solid {{empresa.branding.color_primario}}; padding-top: 10px; margin-top: 10px; }
+        .notes { background: #fff8e1; border: 1px solid #ffe082; padding: 15px; margin: 20px 0; font-size: 9pt; }
+        .notes h4 { color: #f57c00; margin-bottom: 8px; font-size: 10pt; }
+        .signature-section { margin-top: 50px; page-break-inside: avoid; }
+        .signature-row { display: flex; justify-content: space-between; margin-top: 30px; }
+        .signature-box { width: 45%; }
+        .signature-line { border-top: 1px solid #333; margin-top: 50px; padding-top: 10px; font-size: 10pt; }
+        .footer { margin-top: 40px; padding-top: 15px; border-top: 1px solid #e0e0e0; text-align: center; font-size: 8pt; color: #999; }
+        .badge { display: inline-block; padding: 3px 10px; border-radius: 3px; font-size: 8pt; font-weight: 600; text-transform: uppercase; }
+        .badge-draft { background: #fff3e0; color: #e65100; }
+        ul, ol { margin: 10px 0 10px 25px; }
+        li { margin: 5px 0; }
+        .section { margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-top">
+            <div class="company-info">
+                <h1>{{empresa.nombre}}</h1>
+                <p>{{empresa.contacto.direccion}}</p>
+                <p>{{empresa.contacto.telefono}} | {{empresa.contacto.email}}</p>
+            </div>
+            <div class="document-meta">
+                <span class="badge badge-draft">BORRADOR</span>
+                <p class="doc-id">{{documento.id}}</p>
+                <p class="doc-date">{{fecha.hoy}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="client-box">
+        <h3>Cliente</h3>
+        <p><strong>{{cliente.nombre}}</strong></p>
+        <p>{{cliente.direccion}}</p>
+        <p>{{cliente.telefono}} | {{cliente.email}}</p>
+    </div>
+    <h2>{{documento.titulo}}</h2>
+    <div class="section">
+        <p><strong>Proyecto:</strong> {{proyecto.nombre}} ({{proyecto.id}})</p>
+        <p><strong>Fecha de entrega:</strong> {{proyecto.fecha_entrega}}</p>
+    </div>
+    <div class="content">{{documento.contenido}}</div>
+    <div class="footer">
+        <p>{{empresa.nombre}} — Documento generado por Hermes Business OS</p>
+        <p>{{fecha.hoy}} — {{documento.id}}</p>
+    </div>
+</body>
+</html>
