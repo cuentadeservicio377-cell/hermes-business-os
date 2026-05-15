@@ -1,0 +1,66 @@
+industria: retail
+nombre: Retail y Comercio
+descripcion: Tiendas físicas, e-commerce, distribución
+
+servicios:
+  - codigo: RTL-INV
+    nombre: Inventario Inicial
+    descripcion: Levantamiento y catalogación de productos
+    precio_base: 5000
+    unidad: proyecto
+    
+  - codigo: RTL-PRO
+    nombre: Fotografía de Producto
+    descripcion: Sesión de fotos para catalogo
+    precio_base: 3000
+    unidad: sesion
+    
+  - codigo: RTL-WEB
+    nombre: Setup E-commerce
+    descripcion: Configuración de tienda online
+    precio_base: 15000
+    unidad: proyecto
+    
+  - codigo: RTL-MKT
+    nombre: Campaña Publicitaria
+    descripcion: Diseño y ejecución de campaña
+    precio_base: 10000
+    unidad: campana
+
+roles_equipo:
+  - nombre: Gerente de Tienda
+    tarifa_dia: 2000
+    descripcion: Operación y supervisión
+    
+  - nombre: Vendedor/a
+    tarifa_dia: 800
+    descripcion: Atención al cliente
+    
+  - nombre: Fotógrafo de Producto
+    tarifa_dia: 2500
+    descripcion: Sesiones de fotografía
+    
+  - nombre: Especialista E-commerce
+    tarifa_dia: 3000
+    descripcion: Configuración y optimización online
+
+checklist_template:
+  fases:
+    - nombre: Setup
+      tareas:
+        - Configurar punto de venta
+        - Cargar inventario inicial
+        - Fotografiar productos
+        - Entrenar al equipo
+    - nombre: Lanzamiento
+      tareas:
+        - Publicar e-commerce
+        - Lanzar campaña inicial
+        - Monitorear ventas
+        - Atención a clientes
+    - nombre: Operación
+      tareas:
+        - Reabastecimiento
+        - Reporte de ventas semanal
+        - Ajuste de precios
+        - Promociones

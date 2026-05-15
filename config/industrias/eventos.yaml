@@ -1,0 +1,68 @@
+industria: eventos
+nombre: Eventos y Celebraciones
+descripcion: Bodas, XV años, eventos corporativos, fiestas privadas
+
+servicios:
+  - codigo: EVT-BAS
+    nombre: Paquete Básico
+    descripcion: Decoración básica, mesa de postres, coordinación
+    precio_base: 15000
+    unidad: evento
+    
+  - codigo: EVT-INT
+    nombre: Paquete Intermedio
+    descripcion: Decoración completa, mesa de postres, candy bar, coordinación
+    precio_base: 35000
+    unidad: evento
+    
+  - codigo: EVT-PRM
+    nombre: Paquete Premium
+    descripcion: Todo incluido: decoración, catering, DJ, fotografía, coordinación
+    precio_base: 75000
+    unidad: evento
+
+roles_equipo:
+  - nombre: Coordinador de Evento
+    tarifa_dia: 2000
+    descripcion: Supervisión general del evento
+    
+  - nombre: Decorador/a
+    tarifa_dia: 1500
+    descripcion: Instalación y montaje de decoración
+    
+  - nombre: Mesero/a
+    tarifa_dia: 800
+    descripcion: Servicio durante el evento
+    
+  - nombre: DJ / Sonidista
+    tarifa_dia: 3000
+    descripcion: Música y sonido
+    
+  - nombre: Fotógrafo/a
+    tarifa_dia: 4000
+    descripcion: Cobertura fotográfica
+    
+  - nombre: Seguridad
+    tarifa_dia: 1000
+    descripcion: Control de acceso
+
+checklist_template:
+  fases:
+    - nombre: Pre-evento
+      tareas:
+        - Confirmar fecha y lugar
+        - Contratar proveedores
+        - Diseñar decoración
+        - Enviar invitaciones
+    - nombre: Día del evento
+      tareas:
+        - Montaje de decoración
+        - Revisión de catering
+        - Prueba de sonido
+        - Recepción de invitados
+    - nombre: Post-evento
+      tareas:
+        - Desmontaje
+        - Entrega de fotos
+        - Encuesta de satisfacción
+        - Cierre financiero

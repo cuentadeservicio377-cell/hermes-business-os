@@ -1,0 +1,72 @@
+industria: consultoria
+nombre: Consultoría de Negocios
+descripcion: Marketing, estrategia, transformación digital, operaciones
+
+servicios:
+  - codigo: CON-DIA
+    nombre: Diagnóstico Empresarial
+    descripcion: Análisis de 2 semanas del negocio
+    precio_base: 25000
+    unidad: proyecto
+    
+  - codigo: CON-EST
+    nombre: Estrategia de Marketing
+    descripcion: Plan de marketing trimestral
+    precio_base: 35000
+    unidad: proyecto
+    
+  - codigo: CON-OPR
+    nombre: Optimización de Operaciones
+    descripcion: Rediseño de procesos operativos
+    precio_base: 45000
+    unidad: proyecto
+    
+  - codigo: CON-RET
+    nombre: Retainer Mensual
+    descripcion: Acompañamiento continuo
+    precio_base: 15000
+    unidad: mes
+
+roles_equipo:
+  - nombre: Consultor Senior
+    tarifa_dia: 5000
+    descripcion: Estrategia y dirección de proyectos
+    
+  - nombre: Consultor Junior
+    tarifa_dia: 2500
+    descripcion: Ejecución y análisis
+    
+  - nombre: Analista de Datos
+    tarifa_dia: 3000
+    descripcion: Métricas y reportes
+    
+  - nombre: Especialista en Contenido
+    tarifa_dia: 2000
+    descripcion: Redacción y diseño
+
+checklist_template:
+  fases:
+    - nombre: Descubrimiento
+      tareas:
+        - Entrevistas con stakeholders
+        - Análisis de datos actuales
+        - Benchmark de competencia
+        - Definición de objetivos
+    - nombre: Estrategia
+      tareas:
+        - Workshop de ideación
+        - Propuesta de solución
+        - Aprobación del cliente
+        - Plan de implementación
+    - nombre: Implementación
+      tareas:
+        - Ejecución del plan
+        - Capacitación del equipo
+        - Monitoreo de KPIs
+        - Ajustes iterativos
+    - nombre: Cierre
+      tareas:
+        - Reporte final
+        - Documentación
+        - Handover al cliente
+        - Facturación

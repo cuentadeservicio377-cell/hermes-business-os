@@ -53,8 +53,8 @@ hermes gateway start
 | **hermes-ventas** | CRM, cotizaciones, propuestas, seguimiento | ✅ |
 | **hermes-operaciones** | Proyectos, tareas, checklists, timelines | ✅ |
 | **hermes-documentos** | Documentos con templates, PDFs, Google Docs/Slides | ✅ |
-| **hermes-finanzas** | Presupuestos, pagos, reportes | 🚧 |
-| **hermes-rrhh** | Nómina, equipos, asistencia | 🚧 |
+| **hermes-finanzas** | Presupuestos, pagos, reportes, flujo de caja | ✅ |
+| **hermes-rrhh** | Nómina, equipos, asistencia | ✅ |
 
 ---
 
@@ -108,6 +108,8 @@ Abre [http://localhost:3000](http://localhost:3000)
 - [👤 Guía de Usuario](docs/USER-GUIDE.md)
 - [⚙️ Guía de Admin](docs/ADMIN-GUIDE.md)
 - [🔌 API Reference](docs/API.md)
+- [📝 Changelog](CHANGELOG.md)
+- [🤝 Contributing](CONTRIBUTING.md)
 
 ---
 

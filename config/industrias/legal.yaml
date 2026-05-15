@@ -1,0 +1,66 @@
+industria: legal
+nombre: Servicios Legales
+descripcion: Abogacía, consultoría legal, revisión contractual
+
+servicios:
+  - codigo: LEG-REV
+    nombre: Revisión Contractual
+    descripcion: Revisión y análisis de contratos
+    precio_base: 5000
+    unidad: documento
+    
+  - codigo: LEG-CON
+    nombre: Consultoría Legal
+    descripcion: Asesoría por hora
+    precio_base: 2500
+    unidad: hora
+    
+  - codigo: LEG-REP
+    nombre: Representación Legal
+    descripcion: Patrocinio en juicios y procedimientos
+    precio_base: 15000
+    unidad: caso
+    
+  - codigo: LEG-DOC
+    nombre: Elaboración de Documentos
+    descripcion: Contratos, poderes, escrituras
+    precio_base: 3000
+    unidad: documento
+
+roles_equipo:
+  - nombre: Abogado Asociado
+    tarifa_dia: 3500
+    descripcion: Abogado con experiencia
+    
+  - nombre: Pasante
+    tarifa_dia: 800
+    descripcion: Apoyo legal y research
+    
+  - nombre: Secretario/a Legal
+    tarifa_dia: 1200
+    descripcion: Gestión documental y citas
+    
+  - nombre: Investigador/a
+    tarifa_dia: 1500
+    descripcion: Research jurídico
+
+checklist_template:
+  fases:
+    - nombre: Intake
+      tareas:
+        - Entrevista inicial con cliente
+        - Revisión de documentos
+        - Análisis de riesgos
+        - Propuesta de honorarios
+    - nombre: Ejecución
+      tareas:
+        - Elaboración de estrategia
+        - Redacción de documentos
+        - Presentación ante autoridades
+        - Seguimiento de plazos
+    - nombre: Cierre
+      tareas:
+        - Entrega final al cliente
+        - Facturación
+        - Archivo de expediente
+        - Encuesta de satisfacción
