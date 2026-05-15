@@ -84,14 +84,32 @@ run_test "Consultoria propuesta template" "test -f '$PROJECT_DIR/skills/hermes-d
 run_test "Retail cotizacion template" "test -f '$PROJECT_DIR/skills/hermes-documentos/tools/templates/retail/cotizacion.html'"
 
 echo ""
-echo "5. Documentation Tests"
+echo "5. Dashboard Tests"
+echo "------------------"
+
+run_test "Dashboard package.json" "test -f '$PROJECT_DIR/dashboard/package.json'"
+run_test "Dashboard layout" "test -f '$PROJECT_DIR/dashboard/app/layout.tsx'"
+run_test "Dashboard page" "test -f '$PROJECT_DIR/dashboard/app/page.tsx'"
+run_test "Dashboard clientes" "test -f '$PROJECT_DIR/dashboard/app/clientes/page.tsx'"
+run_test "Dashboard pipeline" "test -f '$PROJECT_DIR/dashboard/app/pipeline/page.tsx'"
+run_test "Dashboard proyectos" "test -f '$PROJECT_DIR/dashboard/app/proyectos/page.tsx'"
+run_test "Dashboard tareas" "test -f '$PROJECT_DIR/dashboard/app/tareas/page.tsx'"
+run_test "Dashboard configuracion" "test -f '$PROJECT_DIR/dashboard/app/configuracion/page.tsx'"
+run_test "Dashboard Nav component" "test -f '$PROJECT_DIR/dashboard/components/Nav.tsx'"
+run_test "Dashboard data lib" "test -f '$PROJECT_DIR/dashboard/lib/data.ts'"
+run_test "Dashboard API route" "test -f '$PROJECT_DIR/dashboard/app/api/data/route.ts'"
+run_test "Dashboard tailwind config" "test -f '$PROJECT_DIR/dashboard/tailwind.config.ts'"
+run_test "Dashboard tsconfig" "test -f '$PROJECT_DIR/dashboard/tsconfig.json'"
+
+echo ""
+echo "6. Documentation Tests"
 echo "----------------------"
 
 run_test "INSTALL.md" "test -f '$PROJECT_DIR/docs/INSTALL.md'"
 run_test "USER-GUIDE.md" "test -f '$PROJECT_DIR/docs/USER-GUIDE.md'"
 
 echo ""
-echo "6. Functional Tests"
+echo "7. Functional Tests"
 echo "-------------------"
 
 run_test "CRM add client" "python3 -c '

@@ -2,39 +2,41 @@
 
 ## Sesión Actual: 2026-05-15
 
-### Fases Completadas: ONBOARDING + PLAN + FASE 2 (Departamentos Core)
+### Fases Completadas: ONBOARDING + PLAN + FASE 2 + FASE 3
 
 #### FASE 1: Fundamentos ✅
 - Estructura base del proyecto
 - 6 skills nativos de Hermes (SKILL.md)
 - Instalador CLI (hbos)
 - Documentación inicial
-- Test suite: 35/35 passing
+- Test suite: 48/48 passing
 
 #### FASE 2: Departamentos Core ✅
-- **hermes-ventas**: CRM, Cotizador, Pipeline — herramientas Python completas
-- **hermes-operaciones**: Proyectos, Tareas, Checklists — herramientas Python completas
-- **hermes-documentos**: Motor Kami v3 + 5 templates HTML por industria
-- Catálogos de servicios por industria (eventos, legal, consultoría, retail)
-- Sistema de datos local JSON (fallback cuando no hay Google Workspace)
-- Router de intenciones funcional con tests
+- **hermes-ventas**: CRM, Cotizador, Pipeline
+- **hermes-operaciones**: Proyectos, Tareas, Checklists
+- **hermes-documentos**: Motor Kami v3 + 5 templates HTML
 
-### Checkpoint: FASE 2 completa
+#### FASE 3: Dashboard Web ✅
+- **Next.js 15** + TypeScript + Tailwind CSS
+- 6 vistas completas: Dashboard, Clientes, Pipeline, Proyectos, Tareas, Configuración
+- Layout responsive con sidebar
+- API REST para datos locales
+- 48/48 tests passing
+
+### Checkpoint: FASE 3 completa
 
 **Stats del proyecto:**
-- 35 archivos Python
-- 6 templates HTML
-- 35/35 tests passing
-- ~8,000+ líneas de código
+- 48 archivos
+- 48/48 tests passing
+- ~12,000+ líneas de código
+- Stack: Hermes Agent + Python tools + Next.js 15 + Tailwind
 
 ### Próxima Fase
 
-**FASE 3: Dashboard Web** (Next.js 15)
-- Scaffold de aplicación Next.js
-- Vistas: clientes, pipeline, proyectos, tareas
-- Autenticación básica
-- Comunicación con datos locales
-
 **FASE 4: Onboarding Wizard** (completar)
-- Flujo conversacional integrado con herramientas
+- Integrar setup_wizard con las herramientas creadas
+- Flujo de bienvenida conversacional
 - Generación automática de estructura de carpetas
+
+**FASE 6: Finanzas + RRHH** (expandir)
+- Completar herramientas beta de finanzas y rrhh
