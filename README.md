@@ -108,6 +108,7 @@ Abre [http://localhost:3000](http://localhost:3000)
 - [👤 Guía de Usuario](docs/USER-GUIDE.md)
 - [⚙️ Guía de Admin](docs/ADMIN-GUIDE.md)
 - [🔌 API Reference](docs/API.md)
+- [📄 Research Paper: Inclusión Digital en LATAM](docs/RESEARCH-PAPER.md)
 - [📝 Changelog](CHANGELOG.md)
 - [🤝 Contributing](CONTRIBUTING.md)
 
