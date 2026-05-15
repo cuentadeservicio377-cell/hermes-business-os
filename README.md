@@ -10,7 +10,7 @@
 [![Python](https://img.shields.io/badge/Python-3.11%2B-3776ab?style=flat-square&logo=python&logoColor=white)](https://python.org)
 [![Next.js](https://img.shields.io/badge/Next.js-15-000000?style=flat-square&logo=next.js&logoColor=white)](https://nextjs.org)
 
-**[📄 Español](README.es.md)** · **[📖 Docs](docs/)** · **[🔬 Research Paper](docs/RESEARCH-PAPER.md)** · **[🚀 Quick Start](#quick-start)**
+**[📄 Español](README.es.md)** · **[📖 Docs](docs/)** · **[🔬 Research Paper (EN)](docs/RESEARCH-PAPER.en.md)** · **[🔬 Research Paper (ES)](docs/RESEARCH-PAPER.md)** · **[🚀 Quick Start](#quick-start)**
 
 </div>
 
